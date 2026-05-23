@@ -17,9 +17,9 @@ https://streaming-platform-content-dashboard.netlify.app/
 
 ## Portfolio Summary
 
-Built an interactive streaming-content analytics dashboard with 28,732 synthetic titles across Netflix, Disney+, and Prime Video. The project includes KPI cards, filterable genre and country analysis, release trends, rating distribution, platform share, and a content-gap scoring panel to identify catalog opportunities.
+An interactive streaming-content analytics dashboard with 28,732 synthetic titles across Netflix, Disney+, and Prime Video. The project includes KPI cards, filterable genre and country analysis, release trends, rating distribution, platform share, and a content-gap scoring panel to identify catalog opportunities.
 
-## Skills Demonstrated
+## What's Included
 
 - Dashboard design
 - Data storytelling
