@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Streaming Platform Content Dashboard</title>
+    <link rel="stylesheet" href="./styles.css?v=2" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Dashboard sections">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="play-icon"></span>
+        </div>
+        <nav>
+          <a class="nav-item active" href="#overview" aria-label="Overview">
+            <span class="nav-icon home"></span>
+            <span>Overview</span>
+          </a>
+          <a class="nav-item" href="#genres" aria-label="Genres">
+            <span class="nav-icon bars"></span>
+            <span>Genres</span>
+          </a>
+          <a class="nav-item" href="#geography" aria-label="Geography">
+            <span class="nav-icon globe"></span>
+            <span>Geography</span>
+          </a>
+          <a class="nav-item" href="#trends" aria-label="Trends">
+            <span class="nav-icon trend"></span>
+            <span>Trends</span>
+          </a>
+          <a class="nav-item" href="#gaps" aria-label="Gaps">
+            <span class="nav-icon target"></span>
+            <span>Gaps</span>
+          </a>
+        </nav>
+      </aside>
+
+      <main class="dashboard" id="overview">
+        <header class="topbar">
+          <div>
+            <h1>Streaming Platform Content Dashboard</h1>
+            <p>Analyze Netflix / Disney+ / Prime content by genre, release year, rating, country, and content gaps</p>
+          </div>
+          <div class="data-date">
+            <span>Data as of: May 10, 2024</span>
+            <span>All times in UTC</span>
+          </div>
+        </header>
+
+        <section class="filters" aria-label="Dashboard filters">
+          <label class="filter-card">
+            <span class="filter-symbol stack"></span>
+            <span class="filter-text">
+              <span>Platform</span>
+              <select id="platformFilter" aria-label="Platform filter"></select>
+            </span>
+          </label>
+          <label class="filter-card">
+            <span class="filter-symbol list"></span>
+            <span class="filter-text">
+              <span>Genre</span>
+              <select id="genreFilter" aria-label="Genre filter"></select>
+            </span>
+          </label>
+          <label class="filter-card">
+            <span class="filter-symbol calendar"></span>
+            <span class="filter-text">
+              <span>Release Year</span>
+              <select id="yearFilter" aria-label="Release year filter"></select>
+            </span>
+          </label>
+          <label class="filter-card">
+            <span class="filter-symbol star"></span>
+            <span class="filter-text">
+              <span>Rating</span>
+              <select id="ratingFilter" aria-label="Rating filter"></select>
+            </span>
+          </label>
+          <label class="filter-card">
+            <span class="filter-symbol globe-small"></span>
+            <span class="filter-text">
+              <span>Country</span>
+              <select id="countryFilter" aria-label="Country filter"></select>
+            </span>
+          </label>
+          <button id="resetFilters" class="reset-button" type="button">
+            <span class="reset-icon"></span>
+            Reset Filters
+          </button>
+        </section>
+
+        <section class="kpi-grid" aria-label="Key metrics">
+          <article class="kpi-card">
+            <span class="kpi-icon catalog"></span>
+            <div>
+              <h2>Total Titles</h2>
+              <strong id="kpiTitles">0</strong>
+              <small id="kpiTitlesDelta">0 vs prior period</small>
+            </div>
+            <svg id="sparkTitles" class="sparkline" viewBox="0 0 110 34" aria-hidden="true"></svg>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-icon score"></span>
+            <div>
+              <h2>Avg Rating</h2>
+              <strong><span id="kpiRating">0.00</span> <em>/10</em></strong>
+              <small id="kpiRatingDelta">0 vs prior period</small>
+            </div>
+            <svg id="sparkRating" class="sparkline" viewBox="0 0 110 34" aria-hidden="true"></svg>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-icon world"></span>
+            <div>
+              <h2>Active Countries</h2>
+              <strong id="kpiCountries">0</strong>
+              <small id="kpiCountriesDelta">0 vs prior period</small>
+            </div>
+            <svg id="sparkCountries" class="sparkline" viewBox="0 0 110 34" aria-hidden="true"></svg>
+          </article>
+          <article class="kpi-card">
+            <span class="kpi-icon genre"></span>
+            <div>
+              <h2>Genre Count</h2>
+              <strong id="kpiGenres">0</strong>
+              <small id="kpiGenresDelta">0 vs prior period</small>
+            </div>
+            <svg id="sparkGenres" class="sparkline" viewBox="0 0 110 34" aria-hidden="true"></svg>
+          </article>
+          <article class="kpi-card gap-score">
+            <span class="kpi-icon gap"></span>
+            <div>
+              <h2>Content Gap Score</h2>
+              <strong><span id="kpiGap">0</span> <em>/100</em></strong>
+              <small id="kpiGapDelta">0 vs prior period</small>
+            </div>
+            <svg id="gapDonut" class="donut-mini" viewBox="0 0 92 92" aria-label="Content gap score gauge"></svg>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <article class="panel genre-panel" id="genres">
+            <div class="panel-title">
+              <h2>Titles by Genre</h2>
+              <span class="info-dot">i</span>
+            </div>
+            <div class="legend" id="genreLegend"></div>
+            <svg id="genreChart" class="chart-svg" viewBox="0 0 760 300" role="img" aria-label="Titles by genre grouped bar chart"></svg>
+          </article>
+
+          <article class="panel map-panel" id="geography">
+            <div class="panel-title">
+              <h2>Titles by Country</h2>
+              <span class="info-dot">i</span>
+            </div>
+            <svg id="countryMap" class="chart-svg map-svg" viewBox="0 0 650 300" role="img" aria-label="Titles by country bubble map"></svg>
+            <div class="map-scale">
+              <span>Titles</span>
+              <span>500</span>
+              <span class="scale-dot tiny"></span>
+              <span class="scale-dot small"></span>
+              <span class="scale-dot medium"></span>
+              <span class="scale-dot large"></span>
+              <span>6,500+</span>
+            </div>
+          </article>
+
+          <aside class="panel gap-panel" id="gaps">
+            <div class="panel-title">
+              <h2>Content Gap Finder</h2>
+            </div>
+            <div id="gapCards" class="gap-cards"></div>
+            <button id="downloadCsv" class="view-all" type="button">
+              Export Current View
+              <span class="arrow-icon"></span>
+            </button>
+          </aside>
+
+          <article class="panel releases-panel" id="trends">
+            <div class="panel-title">
+              <h2>Releases by Year</h2>
+              <span class="info-dot">i</span>
+            </div>
+            <div class="legend" id="releaseLegend"></div>
+            <svg id="releaseChart" class="chart-svg" viewBox="0 0 540 270" role="img" aria-label="Releases by year line chart"></svg>
+            <small class="chart-note">2024 data YTD through May 10, 2024</small>
+          </article>
+
+          <article class="panel rating-panel">
+            <div class="panel-title">
+              <h2>Rating Distribution</h2>
+              <span class="info-dot">i</span>
+            </div>
+            <svg id="ratingChart" class="chart-svg" viewBox="0 0 470 270" role="img" aria-label="Rating distribution bar chart"></svg>
+          </article>
+
+          <article class="panel share-panel">
+            <div class="panel-title">
+              <h2>Platform Share of Titles</h2>
+              <span class="info-dot">i</span>
+            </div>
+            <div class="share-content">
+              <svg id="shareDonut" class="share-donut" viewBox="0 0 230 230" role="img" aria-label="Platform share donut chart"></svg>
+              <div id="shareLegend" class="share-legend"></div>
+            </div>
+            <div class="total-strip">
+              <span>100%</span>
+              <span id="shareTotal">0</span>
+            </div>
+          </article>
+        </section>
+
+        <footer>
+          <span class="footer-info">i</span>
+          <span>All metrics are calculated from the current filter context.</span>
+        </footer>
+      </main>
+    </div>
+
+    <script src="./data.js?v=2"></script>
+    <script src="./app.js?v=2"></script>
+  </body>
+</html>
