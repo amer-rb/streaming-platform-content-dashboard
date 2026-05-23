@@ -4,11 +4,7 @@ An interactive browser dashboard analyzing synthetic streaming-platform catalog 
 
 ## Live Demo
 
-Replace this line with the Netlify link after publishing:
-
-```text
-https://your-site-name.netlify.app
-```
+https://streaming-platform-content-dashboard.netlify.app/
 
 ## What Is Included
 
